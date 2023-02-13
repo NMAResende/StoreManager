@@ -17,7 +17,13 @@ const findById = async (productId) => {
   return { type: null, message: product };
 };
 
+const insertProducts = async (name) => {
+  const id = await productsModel.insertProducts({ name });
+  return { type: null, message: { id, name } };
+};
+
 module.exports = {
   getAll,
   findById,
+  insertProducts,
 };

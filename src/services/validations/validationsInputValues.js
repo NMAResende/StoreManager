@@ -1,4 +1,5 @@
 const { idSchema, 
+  addSchemaProduct,
   } = require('./schema');
 
 const validateId = (id) => {
@@ -8,6 +9,15 @@ const validateId = (id) => {
   return { type: null, message: '' };
 };
 
+const validateNewProduct = (name) => {
+  const { error } = addSchemaProduct
+    .validate({ name });
+  if (error) return { type: 422, message: error.message };
+  
+  return { type: null, message: '' };
+};
+
 module.exports = {
   validateId,
+  validateNewProduct,
 };

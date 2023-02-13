@@ -4,13 +4,18 @@
     "colId": "history",
     "containerId": "",
     "name": "http://localhost:3000/products",
-    "url": "http://localhost:3000/products/777",
-    "method": "GET",
+    "url": "http://localhost:3000/products",
+    "method": "POST",
     "sortNum": 0,
     "created": "2023-02-13T18:31:28.826Z",
-    "modified": "2023-02-13T19:05:29.951Z",
+    "modified": "2023-02-13T22:17:55.182Z",
     "headers": [],
     "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"Capa do Batman\"\n}",
+      "form": []
+    },
     "tests": []
   },
   {
