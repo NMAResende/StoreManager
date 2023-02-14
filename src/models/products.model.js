@@ -38,7 +38,7 @@ return result;
 
 const remove = async (id) => {
   const [result] = await connection.execute(
-    'DELETE * FROM StoreManager.products WHERE id = (?)',
+    'DELETE FROM StoreManager.products WHERE id = (?)',
     [id],
   );
 
