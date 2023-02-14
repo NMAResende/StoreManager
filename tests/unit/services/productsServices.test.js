@@ -5,7 +5,9 @@ const { productsService } = require('../../../src/services');
 
 const { productsModel } = require('../../../src/models');
 
-const allProducts = require('../services/mocks/products.services.mock');
+const { allProducts, invalidValue,
+  validName,
+  emptyName } = require('../services/mocks/products.services.mock');
 
 describe('Verificando service de produtos', function () {
   describe('listagem todos os produtos', function () {
@@ -22,7 +24,7 @@ describe('Verificando service de produtos', function () {
     });
   });
 
-   describe('busca de um produto', function () {
+  describe('busca de um produto', function () {
     it('retorna um erro caso receba um ID inválido', async function () {
 
       // act
@@ -47,7 +49,7 @@ describe('Verificando service de produtos', function () {
     
     it('retorna um produto caso ID existente', async function () {
       // arrange
-      sinon.stub(productsModel, 'findById').resolves([[allProducts[0]]]);
+      sinon.stub(productsModel, 'findById').resolves(allProducts[0]);
       
       // act
       const result = await productsService.findById(1);
@@ -56,5 +58,44 @@ describe('Verificando service de produtos', function () {
       expect(result.type).to.equal(null);
       expect(result.message).to.deep.equal(allProducts[0]);
     });
+   });
+
+  describe('cadastro de um produto com valores válidos', function () {
+    it('retorna o ID do produto cadastrado', async function () {
+      // arrange
+      sinon.stub(productsModel, 'insertProducts').resolves(1);
+      sinon.stub(productsModel, 'findById').resolves(allProducts[0]);
+      
+      // act
+      const result = await productsService.insertProducts(validName);
+
+      // assert
+      expect(result.type).to.equal(null);
+      expect(result.message).to.deep.equal(allProducts[0]);
+    });
   });
+
+  describe('Tentando cadastrar um produto com erros semânticos', function () {
+    it('retorna um erro ao receber um nome inválido', async function () {
+      const response = await productsService.insertProducts(invalidValue);
+
+      expect(response.type).to.equal('INVALID_VALUE');
+      expect(response.message).to.equal(
+        '"name" length must be at least 5 characters long',
+      );
+    });
+
+    it('retorna um erro ao não receber um nome', async function () {
+      const response = await productsService.insertProducts(emptyName);
+
+      expect(response.type).to.equal('INVALID_VALUE');
+      expect(response.message).to.equal(
+        '"name" is required',
+      );
+    });
+  });
+
+  afterEach(function () {
+      sinon.restore();
+    });
 });

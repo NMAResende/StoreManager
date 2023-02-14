@@ -9,4 +9,13 @@ const allProducts = [
   }
 ];
 
-module.exports = allProducts;
+const invalidValue = 'a';
+const validName = 'Martelo de Thor';
+const emptyName = '';
+
+module.exports = {
+  allProducts,
+  invalidValue,
+  validName,
+  emptyName,
+};
