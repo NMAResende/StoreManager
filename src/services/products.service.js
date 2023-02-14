@@ -9,7 +9,6 @@ const getAll = async () => {
 
 const findById = async (productId) => {
   const error = schema.validateId(productId);
-  console.log(error);
   if (error.type) return error;
 
   const product = await productsModel.findById(productId);
