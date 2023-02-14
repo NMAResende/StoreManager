@@ -74,7 +74,7 @@ describe('Teste de unidade do Controller', function () {
 
       // Assert
       expect(res.status).to.have.been.calledWith(422);
-      expect(res.json).to.have.been.calledWith('"id" must be a number');
+      expect(res.json).to.have.been.calledWith({message: '"id" must be a number'});
     });
   });
 
