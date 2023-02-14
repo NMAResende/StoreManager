@@ -101,7 +101,7 @@ describe('Teste de unidade do Controller', function () {
       expect(res.json).to.have.been.calledWith(newProduct);
     });
 
-    it('ao enviar um nome com menos de 3 caracteres deve retornar um erro!', async function () {
+    it('ao enviar um nome com menos de 5 caracteres deve retornar um erro!', async function () {
       // Arrange
       const res = {};
       const req = {

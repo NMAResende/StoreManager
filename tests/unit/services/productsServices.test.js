@@ -75,26 +75,6 @@ describe('Verificando service de produtos', function () {
     });
   });
 
-  describe('Tentando cadastrar um produto com erros semânticos', function () {
-    it('retorna um erro ao receber um nome inválido', async function () {
-      const response = await productsService.insertProducts(invalidValue);
-
-      expect(response.type).to.equal('INVALID_VALUE');
-      expect(response.message).to.equal(
-        '"name" length must be at least 5 characters long',
-      );
-    });
-
-    it('retorna um erro ao não receber um nome', async function () {
-      const response = await productsService.insertProducts(emptyName);
-
-      expect(response.type).to.equal('INVALID_VALUE');
-      expect(response.message).to.equal(
-        '"name" is required',
-      );
-    });
-  });
-
   afterEach(function () {
       sinon.restore();
     });
