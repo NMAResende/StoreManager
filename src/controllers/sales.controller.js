@@ -19,12 +19,12 @@ const findById = async (req, res) => {
 };
 
 const insertSales = async (req, res) => {
-  const { saleId, productId, quantity } = req.body;
-  const { type, message } = await salesService.insertSales(saleId, productId, quantity);
+  const sales = req.body;
+  const { type, id, message } = await salesService.insertSales(sales);
 
   if (type) return res.status(type).json({ message });
 
-  res.status(201).json(message);
+  res.status(201).json({ id, itemsSold: message });
 };
 
 module.exports = {

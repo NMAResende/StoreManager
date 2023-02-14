@@ -1,3 +1,4 @@
+const camelize = require('camelize');
 const connection = require('./db/connection');
 
 const getAll = async () => {
@@ -33,11 +34,11 @@ const insertSales = async () => {
 
 const insertSalesDetails = async ({ saleId, productId, quantity }) => {
   const result = await connection.execute(
-    'INSERT INTO StoreManager.sales_products (saleId, productId, quantity) VALUES (?, ?, ?)',
+    'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)',
     [saleId, productId, quantity],
   );
 
-  return result;
+  return camelize(result);
 };
 
 module.exports = {
