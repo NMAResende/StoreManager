@@ -24,8 +24,9 @@ const insertProducts = async (name) => {
 
 const updateProducts = async (id, name) => {
   const hasname = await productsModel.findById(id);
+  console.log(hasname);
 
-  if (!hasname.length) return { type: 404, message: 'Product not found' };
+  if (!hasname) return { type: 404, message: 'Product not found' };
 
   await productsModel.updateProducts(id, name);
   return { type: null, message: hasname };
@@ -33,7 +34,7 @@ const updateProducts = async (id, name) => {
 
 const remove = async (id) => {
   const hasProduct = await productsModel.findById(id);
-  if (!hasProduct.length) return { type: 404, message: 'Product not found' };
+  if (!hasProduct) return { type: 404, message: 'Product not found' };
 
   await productsModel.remove(id);
 

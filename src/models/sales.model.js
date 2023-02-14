@@ -3,25 +3,25 @@ const connection = require('./db/connection');
 
 const getAll = async () => {
   const [result] = await connection.execute(
-    `SELECT saleID, date, productId, quantity FROM Store_manager.sales as s 
+    `SELECT id AS sale_id, date, product_id, quantity FROM StoreManager.sales as s 
     INNER JOIN StoreManager.sales_products AS p 
-    ON s.sale_id = p.sale_id
-    ORDER BY s.sale_id ASC, p.product_id ASC`,
+    ON s.id = p.sale_id
+    ORDER BY s.id ASC, p.product_id ASC`,
   );
   
-  return result;
+  return camelize(result);
 };
 
 const findById = async (id) => {
-  const [[result]] = await connection.execute(
-    `SELECT date, productId, quantity FROM StoreManager.sales AS s 
+  const [result] = await connection.execute(
+    `SELECT date, product_id, quantity FROM StoreManager.sales AS s 
     INNER JOIN StoreManager.sales_products AS p
-    ON s.sale_id = p.sale_id
-    ORDER BY s.sale_id ASC, p.product_id ASC`,
+    ON s.id = p.sale_id WHERE s.id = ?
+    ORDER BY s.id ASC, p.product_id ASC`,
     [id],
   );
-
-  return result;
+console.log(result);
+  return camelize(result);
 };
 
 const insertSales = async () => {

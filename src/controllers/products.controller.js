@@ -32,8 +32,8 @@ const updateProducts = async (req, res) => {
   const { id } = req.params;
   
   const { type, message } = await productsService.updateProducts(id, name);
-console.log(type);
-  if (type) return res.status(type).json({ message });
+console.log(message);
+  if (type) return res.status(404).json({ message: 'Product not found' });
 
   res.status(200).json(message);
 };
@@ -41,7 +41,7 @@ console.log(type);
 const remove = async (req, res) => {
   const { id } = req.params;
   const { type, message } = await productsService.remove(id);
-  if (type) return res.status(type).json({ message });
+  if (type) return res.status(404).json({ message });
 
   res.status(204).end();
 };
