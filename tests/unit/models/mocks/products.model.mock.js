@@ -23,8 +23,11 @@ const idRemove =  [
 
 const idProduct = 1;
 
+const errorId = 999;
+
 module.exports = {
   allProducts,
   idRemove,
-  idProduct
+  idProduct,
+  errorId
 };

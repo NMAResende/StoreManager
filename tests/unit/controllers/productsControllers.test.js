@@ -124,7 +124,7 @@ describe('Teste de unidade do Controller', function () {
       const req = { params: { id: 1 } };
 
       res.status = sinon.stub().returns(res);
-      res.json = sinon.stub().returns();
+      res.end = sinon.stub().returns();
 
       sinon.stub(productsService, 'remove').resolves({ type: null });
 
