@@ -23,13 +23,12 @@ const insertProducts = async (name) => {
 };
 
 const updateProducts = async (id, name) => {
-  const hasname = await productsModel.findById(id);
-  console.log(hasname);
+  const existProduct = await productsModel.findById(id);
 
-  if (!hasname) return { type: 404, message: 'Product not found' };
+  if (!existProduct) return { type: 404, message: 'Product not found' };
 
-  await productsModel.updateProducts(id, name);
-  return { type: null, message: hasname };
+  await productsModel.updateProducts({ id, name });
+  return { type: null, message: { id, name } };
 };
 
 const remove = async (id) => {

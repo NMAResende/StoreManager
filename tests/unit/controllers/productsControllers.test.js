@@ -6,9 +6,7 @@ const { expect } = chai;
 chai.use(sinonChai);
 
 const { productsService } = require('../../../src/services');
-// console.log(productsServices);
 const { productsController }= require('../../../src/controllers');
-
 const { allProducts, product, newProduct } = require('./mocks/products.controller.mock');
 
 describe('Teste de unidade do Controller', function () {
@@ -20,13 +18,12 @@ describe('Teste de unidade do Controller', function () {
       
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
+
       sinon
         .stub(productsService, 'getAll')
         .resolves({ type: null, message: allProducts });
-
       // act
       await productsController.getAll(req, res);
-
       // assert
       expect(res.status).to.have.been.calledWith(200);
       expect(res.json).to.have.been.calledWith(allProducts);
@@ -43,13 +40,13 @@ describe('Teste de unidade do Controller', function () {
 
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
+
       sinon
         .stub(productsService, 'findById')
         .resolves({ type: null, message: allProducts });
 
       // Act
       await productsController.findById(req, res);
-
       // Assert
       expect(res.status).to.have.been.calledWith(200);
       expect(res.json).to.have.been.calledWith(allProducts);
@@ -68,10 +65,8 @@ describe('Teste de unidade do Controller', function () {
       sinon
         .stub(productsService, 'findById')
         .resolves({ type: 'INVALID_VALUE', message: '"id" must be a number' });
-
       // Act
       await productsController.findById(req, res);
-
       // Assert
       expect(res.status).to.have.been.calledWith(422);
       expect(res.json).to.have.been.calledWith({message: '"id" must be a number'});
@@ -95,7 +90,6 @@ describe('Teste de unidade do Controller', function () {
 
       // Act
       await productsController.insertProducts(req, res);
-
       // Assert
       expect(res.status).to.have.been.calledWith(201);
       expect(res.json).to.have.been.calledWith(newProduct);
@@ -118,11 +112,40 @@ describe('Teste de unidade do Controller', function () {
         .resolves({ type: 'INVALID_VALUE', message: '"name" length must be at least 5 characters long' });
       // Act
       await productsController.insertProducts(req, res);
-
       // Assert
-      expect(res.status).to.have.been.calledWith('INVALID_VALUE');
-      
+      expect(res.status).to.have.been.calledWith('INVALID_VALUE');      
       expect(res.json).to.have.been.calledWith({ message: '"name" length must be at least 5 characters long' });
+    });
+  });
+
+  describe('Testa a camada controller para a função "remove"', function () {
+    it('Faz a remoção de um produto através do id', async function () {
+      const res = {};
+      const req = { params: { id: 1 } };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon.stub(productsService, 'remove').resolves({ type: null });
+
+      await productsController.remove(req, res);
+
+      expect(res.status).to.have.been.calledWith(204);
+    });
+
+    it('Faz a remoção de um produto através do id que não existe', async function () {
+      const req = { params: { id: 999 } };
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon.stub(productsService, 'remove').resolves({ type: 404, message: 'Product not found' });
+
+      await productsController.remove(req, res);
+
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
     });
   });
 

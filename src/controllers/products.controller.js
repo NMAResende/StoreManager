@@ -30,12 +30,13 @@ const insertProducts = async (req, res) => {
 const updateProducts = async (req, res) => {
   const { name } = req.body;
   const { id } = req.params;
+  console.log(name, id);
   
   const { type, message } = await productsService.updateProducts(id, name);
-console.log(message);
+// console.log(message);
   if (type) return res.status(404).json({ message: 'Product not found' });
 
-  res.status(200).json(message);
+  return res.status(200).json(message);
 };
 
 const remove = async (req, res) => {
