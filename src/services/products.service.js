@@ -40,10 +40,20 @@ const remove = async (id) => {
   return { type: null };
 };
 
+const searchProduct = async (query) => {
+  const getAllProduct = await productsModel.getAll();
+
+  const filterProduct = getAllProduct
+    .filter((el) => el.name.toLowerCase().includes(query.toLowerCase()));
+  
+  return filterProduct;
+};
+
 module.exports = {
   getAll,
   findById,
   insertProducts,
   updateProducts,
   remove,
+  searchProduct,
 };
