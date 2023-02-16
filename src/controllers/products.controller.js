@@ -49,11 +49,9 @@ const remove = async (req, res) => {
 
 const searchProduct = async (req, res) => {
   const { q } = req.query;
-  const { type, message } = await productsService.searchProduct(q);
+  const result = await productsService.searchProduct(q);
 
-  if (type) return res.status(200).json();
-
-  res.status(200).json(message);
+  res.status(200).json(result);
 };
 
 module.exports = {
