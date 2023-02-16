@@ -20,7 +20,7 @@ const findById = async (id) => {
     ORDER BY s.id ASC, p.product_id ASC`,
     [id],
   );
-console.log(result);
+// console.log(result);
   return camelize(result);
 };
 
@@ -57,7 +57,7 @@ const remove = async (id) => {
     'DELETE FROM StoreManager.sales WHERE id = ?',
     [id],
   );
-  
+  console.log(result);
   return result;
 };
 module.exports = {

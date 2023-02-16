@@ -45,7 +45,7 @@ const searchProduct = async (q) => {
 
   const filterProduct = getAllProduct
     .filter((el) => el.name.includes(q));
-  console.log(filterProduct);
+  
   return filterProduct;
 };
 

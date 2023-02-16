@@ -32,28 +32,28 @@ const idSalesList = [{
   "quantity": 15
 }];
 
-const salesInsert = [
-  {
-    "productId": 1,
-    "quantity": 1
-  },
-  {
-    "productId": 2,
-    "quantity": 5
-  }
-];
+const salesInsert = {
+  "id": 3,
+  "itemsSold": [
+    {
+      "productId": 1,
+      "quantity": 1
+    },
+    {
+      "productId": 2,
+      "quantity": 5
+    }
+  ]
+}
 
-const idRemove =  [
-  {
-    fieldCount: 0,
-    affectedRows: 1,
-    insertId: 0,
-    info: '',
-    serverStatus: 2,
-    warningStatus: 0,
-  },
-  undefined,
-];
+const idRemove =  {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  info: '',
+  serverStatus: 2,
+  warningStatus: 0
+};
 
 const idSale = 1;
 

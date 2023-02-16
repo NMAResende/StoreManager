@@ -20,14 +20,14 @@ describe('Verificando service de vendas', function () {
   });
 
   describe('busca de uma venda', function () {
-    // it('retorna um erro caso receba um ID inválido', async function () {
-    //   sinon.stub(salesModel, 'findById').resolves();
-    //   // act
-    //   const result = await salesService.findById('a');
-    //   // assert
-    //   expect(result.type).to.equal(422);
-    //   expect(result.message).to.equal('"id" must be a number');
-    // });
+    it('retorna um erro caso receba um ID inválido', async function () {
+      sinon.stub(salesModel, 'findById').resolves([]);
+      // act
+      const result = await salesService.findById('a');
+      // assert
+      expect(result.type).to.equal(404);
+      expect(result.message).to.equal('Sale not found');
+    });
 
      it('retorna uma venda inválida caso receba um ID não exista', async function () {
       sinon.stub(salesModel, 'findById').resolves([]);
@@ -51,10 +51,10 @@ describe('Verificando service de vendas', function () {
 
   // describe('Testa a camada service para a função "insertSales"', async function () {
   //   it('Faz a inserção de uma nova venda', async function () {
-  //     const result = { type: null, message: newSales }
+  //     const result = { type: null, message: salesInsert }
 
   //     sinon.stub(salesModel, 'insertSales').resolves();
-  //     sinon.stub(salesModel, 'insertSalesDetails').resolves();
+  //     sinon.stub(salesModel, 'insertSalesDetails').resolves(idSalesList);
 
   //     const response = await salesService.insertSales(salesInsert);
 
@@ -78,7 +78,8 @@ describe('Verificando service de vendas', function () {
       
     //   const result = { type: 404, message: 'Sale not found' };
 
-    //   sinon.stub(salesModel, 'remove').resolves();
+    //   sinon.stub(salesModel, 'findById').resolves([idRemove]);
+    //   sinon.stub(salesModel, 'remove').resolves(undefined);
 
     //   const response = await salesService.remove(999);
 
