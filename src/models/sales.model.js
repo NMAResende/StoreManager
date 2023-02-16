@@ -41,6 +41,17 @@ const insertSalesDetails = async ({ saleId, productId, quantity }) => {
   return camelize(result);
 };
 
+const updateSales = async ({ id, productId, quantity }) => {
+  const [result] = await connection.execute(
+    `UPDATE StoreManager.sales_products 
+    SET product_id = ?, quantity = ? 
+    WHERE sale_id = ? AND product_id = ?`,
+    [id, productId, quantity],
+  );
+
+  return result;
+};
+
 const remove = async (id) => {
   const [result] = await connection.execute(
     'DELETE FROM StoreManager.sales WHERE id = ?',
@@ -54,5 +65,6 @@ module.exports = {
   findById,
   insertSales,
   insertSalesDetails,
+  updateSales,
   remove,
 };

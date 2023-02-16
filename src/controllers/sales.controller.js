@@ -27,6 +27,17 @@ const insertSales = async (req, res) => {
   res.status(201).json({ id, itemsSold: message });
 };
 
+const updateSales = async (req, res) => {
+  const { productId, quantity } = req.body;
+  const { id } = req.params;
+  
+  const { type, message } = await salesService.updateSales(id, productId, quantity);
+
+  if (type) return res.status(404).json({ message: 'sale not found' });
+
+  return res.status(200).json(message);
+};
+
 const remove = async (req, res) => {
   const { id } = req.params;
   const { type, message } = await salesService.remove(id);
@@ -40,5 +51,6 @@ module.exports = {
   getAll,
   findById,
   insertSales,
+  updateSales,
   remove,
 };

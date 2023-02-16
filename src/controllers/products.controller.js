@@ -30,7 +30,6 @@ const insertProducts = async (req, res) => {
 const updateProducts = async (req, res) => {
   const { name } = req.body;
   const { id } = req.params;
-  console.log(name, id);
   
   const { type, message } = await productsService.updateProducts(id, name);
 // console.log(message);
