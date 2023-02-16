@@ -40,8 +40,12 @@ const existSale = await salesModel.findById(id);
 
   if (!existSale) return { type: 404, message: 'Sale not found' };
 
-  await salesModel.updateSales({ id, productId, quantity });
-  return { type: null, message: { id, productId, quantity } };
+  const sales = await salesModel.updateSales({ productId, quantity });
+  return {
+    type: null,
+    saleId: id,
+    message: sales,
+  };
 };
 
 const remove = async (id) => {

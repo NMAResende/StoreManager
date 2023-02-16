@@ -41,11 +41,27 @@ const salesInsert = [
     "productId": 2,
     "quantity": 5
   }
-]
+];
+
+const idRemove =  [
+  {
+    fieldCount: 0,
+    affectedRows: 1,
+    insertId: 0,
+    info: '',
+    serverStatus: 2,
+    warningStatus: 0,
+  },
+  undefined,
+];
+
+const idSale = 1;
 
 module.exports = {
   salesList,
   newSales,
   idSalesList,
   salesInsert,
+  idRemove,
+  idSale,
 }

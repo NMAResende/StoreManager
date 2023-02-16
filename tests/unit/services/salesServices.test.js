@@ -3,7 +3,8 @@ const sinon = require('sinon');
 
 const { salesService } = require('../../../src/services');
 const { salesModel } = require('../../../src/models');
-const { salesList, idSalesList, newSales, salesInsert } = require('../services/mocks/sales.services.mock');
+const { salesList, idSalesList,
+  newSales, salesInsert, idRemove, idSale } = require('../services/mocks/sales.services.mock');
 
 describe('Verificando service de vendas', function () {
   describe('listagem todas as vendas', function () {
@@ -60,6 +61,30 @@ describe('Verificando service de vendas', function () {
   //     expect(response).to.be.deep.equal(result);
   //   });
   // });
+
+  describe('Testa a camada service para a função "remove"', function () {
+    it('Faz a remoção de umavenda pelo id', async function () {
+      const result = { type: null };
+
+      sinon.stub(salesModel, 'findById').resolves([idRemove]);
+      sinon.stub(salesModel, 'remove').resolves(undefined);
+
+      const response = await salesService.remove(idSale);
+
+      expect(response).to.be.deep.equal(result);
+    });
+
+    // it('Tenta fazer a remoção de uma venda com um id que não existe', async function () {
+      
+    //   const result = { type: 404, message: 'Sale not found' };
+
+    //   sinon.stub(salesModel, 'remove').resolves();
+
+    //   const response = await salesService.remove(999);
+
+    //   expect(response).to.be.deep.equal(result);
+    // });
+  });
 
   afterEach(function () {
       sinon.restore();

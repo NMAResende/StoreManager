@@ -48,8 +48,8 @@ const updateSales = async ({ id, productId, quantity }) => {
     WHERE sale_id = ? AND product_id = ?`,
     [id, productId, quantity],
   );
-
-  return result;
+console.log(result);
+  return camelize(result);
 };
 
 const remove = async (id) => {

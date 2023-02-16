@@ -24,10 +24,26 @@ const idSalesList = [{
   "date": "2023-02-15T17:23:31.000Z",
   "productId": 3,
   "quantity": 15
-}]
+}];
+
+const idRemove =  [
+  {
+    fieldCount: 0,
+    affectedRows: 1,
+    insertId: 0,
+    info: '',
+    serverStatus: 2,
+    warningStatus: 0,
+  },
+  undefined,
+];
+
+const idSale = 1;
 
 module.exports = {
   salesList,
   newSales,
   idSalesList,
+  idRemove,
+  idSale
 }

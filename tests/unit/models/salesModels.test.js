@@ -1,6 +1,6 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
-const { salesList, newSales, idSalesList } = require('./mocks/products.model.mock');
+const { salesList, newSales, idSalesList, idRemove, idSale } = require('./mocks/products.model.mock');
 const { salesModel } = require('../../../src/models');
 const connection = require('../../../src/models/db/connection');
 
@@ -33,6 +33,16 @@ describe('Rota /sales', function () {
       const response = await salesModel.insertSales(newSales);
 
       expect(response).to.be.equal(4);
+    });
+  });
+
+  describe('Testa a camada model para a função "remove"', function () {
+    it('Faz a remoção de uma venda com sucesso', async function () {
+      sinon.stub(connection, 'execute').resolves([idRemove]);
+
+      const response = await salesModel.remove(idSale);
+
+      expect(response).to.be.equal(idRemove);
     });
   });
 
