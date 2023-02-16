@@ -44,12 +44,12 @@ const insertSalesDetails = async ({ saleId, productId, quantity }) => {
 const updateSales = async ({ id, productId, quantity }) => {
   const [result] = await connection.execute(
     `UPDATE StoreManager.sales_products 
-    SET product_id = ?, quantity = ? 
+    SET quantity = ? 
     WHERE sale_id = ? AND product_id = ?`,
-    [id, productId, quantity],
+    [quantity, id, productId],
   );
-console.log(result);
-  return camelize(result);
+
+  return result;
 };
 
 const remove = async (id) => {

@@ -35,12 +35,21 @@ const insertSales = async (sales) => {
   };
 };
 
-const updateSales = async ({ id, productId, quantity }) => {
-const existSale = await salesModel.findById(id);
+const updateSales = async (id, sales) => {
+const getProductId = await Promise.all(sales.map(async (sale) => productsModel
+  .findById(sale.productId)));
+  
+  if (getProductId.includes(undefined)) {
+    return { type: 404, message: 'Product not found' };
+  }
 
-  if (!existSale) return { type: 404, message: 'Sale not found' };
+  const existSale = await salesModel.findById(id);
 
-  const sales = await salesModel.updateSales({ productId, quantity });
+  if (!existSale.length) return { type: 404, message: 'Sale not found' };
+
+  await Promise.all(sales.map(async (sale) => salesModel
+    .updateSales({ id, productId: sale.productId, quantity: sale.quantity })));
+
   return {
     type: null,
     saleId: id,

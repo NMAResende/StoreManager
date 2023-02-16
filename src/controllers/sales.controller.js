@@ -28,14 +28,14 @@ const insertSales = async (req, res) => {
 };
 
 const updateSales = async (req, res) => {
-  const { productId, quantity } = req.body;
+  const sales = req.body;
   const { id } = req.params;
   
-  const { type, message } = await salesService.updateSales(id, productId, quantity);
+  const { type, message } = await salesService.updateSales(id, sales);
 
-  if (type) return res.status(404).json({ message: 'Sale not found' });
+  if (type) return res.status(type).json({ message });
 
-  return res.status(200).json({ id, itemsSold: message });
+  return res.status(200).json({ saleId: id, itemsUpdated: message });
 };
 
 const remove = async (req, res) => {

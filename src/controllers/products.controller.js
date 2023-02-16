@@ -48,10 +48,10 @@ const remove = async (req, res) => {
 };
 
 const searchProduct = async (req, res) => {
-  const { name } = req.query;
-  const { type, message } = await productsService.searchProduct(name);
+  const { q } = req.query;
+  const { type, message } = await productsService.searchProduct(q);
 
-  if (type) return res.status(200).json([]);
+  if (type) return res.status(200).json();
 
   res.status(200).json(message);
 };

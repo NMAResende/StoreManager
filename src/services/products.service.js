@@ -40,11 +40,11 @@ const remove = async (id) => {
   return { type: null };
 };
 
-const searchProduct = async (query) => {
+const searchProduct = async (q) => {
   const getAllProduct = await productsModel.getAll();
 
   const filterProduct = getAllProduct
-    .filter((el) => el.name.toLowerCase().includes(query.toLowerCase()));
+    .filter((el) => el.name.includes(q));
   
   return filterProduct;
 };
