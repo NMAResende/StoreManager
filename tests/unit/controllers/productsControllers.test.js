@@ -118,6 +118,23 @@ describe('Teste de unidade do Controller', function () {
     });
   });
 
+    describe('Testa a camada controller para a função "updateProducts"', function () {
+    it('Faz a atualização de um produto pelo id', async function () {
+      const req = { params: { id: 1 }, body: { name: 'Martelo do Batman'} };
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon.stub(productsService, 'updateProducts').resolves({ type: null, message: { id: 1, name: "Martelo do Batman"}});
+
+      await productsController.updateProducts(req, res);
+
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith({ id: 1, name: "Martelo do Batman"});
+    });
+  });
+
   describe('Testa a camada controller para a função "remove"', function () {
     it('Faz a remoção de um produto através do id', async function () {
       const res = {};

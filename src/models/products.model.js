@@ -32,16 +32,20 @@ const updateProducts = async ({ id, name }) => {
   SET name = (?) WHERE id = (?)`,
   [name, id],
   );
-
+console.log('updateModel', result);
 return result;
 };
-
+/**
+ * 
+ * @param {Number} id 
+ * @returns 
+ */
 const remove = async (id) => {
   const [result] = await connection.execute(
     'DELETE FROM StoreManager.products WHERE id = (?)',
     [id],
   );
-console.log(result);
+
   return result;
 };
 

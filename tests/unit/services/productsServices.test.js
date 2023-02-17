@@ -3,7 +3,8 @@ const sinon = require('sinon');
 
 const { productsService } = require('../../../src/services');
 const { productsModel } = require('../../../src/models');
-const { allProducts, validName, idProduct, idRemove } = require('../services/mocks/products.services.mock');
+const { allProducts, validName, idProduct, idRemove, mockUpdate,
+idProductUp } = require('../services/mocks/products.services.mock');
 const { searchProduct } = require('../../../src/services/products.service');
 
 describe('Verificando service de produtos', function () {
@@ -62,7 +63,20 @@ describe('Verificando service de produtos', function () {
     });
   });
 
+describe('Testa a camada service para a função "updateProducts"', async function () {
+    it('Faz a atualização de um produto pelo id', async function () {
 
+      sinon.stub(productsModel, 'findById').resolves([idProductUp]);
+      sinon.stub(productsModel, 'updateProducts').resolves(mockUpdate);
+
+      const product = { id: 1, name: "Martelo da Nathália" };
+      const responde = await productsService.updateProducts(1, "Martelo da Nathália");
+      
+      expect(responde.type).to.be.deep.equal(null);
+      expect(responde.message).to.be.deep.equal({ id: 1, name: "Martelo da Nathália"});
+    });
+});
+  
   describe('Testa a camada service para a função "remove"', function () {
     it('Faz a remoção de um produto pelo id', async function () {
       const result = { type: null };

@@ -37,7 +37,7 @@ const salesInsert = {
   "itemsSold": [
     {
       "productId": 1,
-      "quantity": 1
+      "quantity": 5
     },
     {
       "productId": 2,

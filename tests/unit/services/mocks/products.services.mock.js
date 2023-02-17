@@ -9,6 +9,11 @@ const allProducts = [
   }
 ];
 
+idProductUp = {
+    "id": 1,
+    "name": "Martelo de Thor"
+  }
+
 const invalidValue = 'a';
 const validName = 'Martelo de Thor';
 const emptyName = '';
@@ -22,6 +27,16 @@ const idRemove =  {
   warningStatus: 0
 };
 
+const mockUpdate = {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  info: 'Rows matched: 1  Changed: 1  Warnings: 0',
+  serverStatus: 2,
+  warningStatus: 0,
+  changedRows: 1
+};
+
 const idProduct = 1;
 
 module.exports = {
@@ -31,4 +46,6 @@ module.exports = {
   emptyName,
   idRemove,
   idProduct,
+  mockUpdate,
+  idProductUp,
 };
