@@ -3,7 +3,8 @@ const sinon = require('sinon');
 
 const { productsService } = require('../../../src/services');
 const { productsModel } = require('../../../src/models');
-const { allProducts, validName, idProduct, idRemove, errorId } = require('../services/mocks/products.services.mock');
+const { allProducts, validName, idProduct, idRemove } = require('../services/mocks/products.services.mock');
+const { searchProduct } = require('../../../src/services/products.service');
 
 describe('Verificando service de produtos', function () {
   describe('listagem todos os produtos', function () {
@@ -74,17 +75,42 @@ describe('Verificando service de produtos', function () {
       expect(response).to.be.deep.equal(result);
     });
 
-    // it('Tenta fazer a remoção de um produto com um id que não existe', async function () {
+    it('Tenta fazer a remoção de um produto com um id que não existe', async function () {
       
-    //   const result = { type: 404, message: 'Product not found' };
+      const result = { type: 404, message: 'Product not found' };
 
-    //   sinon.stub(productsModel, 'remove').resolves();
+      sinon.stub(productsModel, 'findById').resolves();
+      sinon.stub(productsModel, 'remove').resolves(idRemove);
 
-    //   const response = await productsService.remove(errorId);
+      const response = await productsService.remove(999);
 
-    //   expect(response).to.be.deep.equal(result);
-    // });
+      expect(response).to.be.deep.equal(result);
+    });
   });
+
+  describe('Usando o método GET em /products/search', function () {
+    it('Retorna os produtos que contém "Martelo" no nome', async function () {
+      const result = [{
+        "id": 1,
+        "name": "Martelo de Thor"
+      }];
+
+      sinon.stub(productsModel, 'getAll').resolves(allProducts);
+
+      const response = await productsService.searchProduct('Martelo');
+
+      expect(response).to.be.deep.equal(result);
+    });
+
+    // it('Retorna todos os produtos caso a pesquisa do nome não seja encontrada', async function () {
+
+    //   sinon.stub(productsModel, 'getAll').resolves(allProducts);
+
+    //   const response = await productsService.searchProduct();
+
+    //   expect(response).to.be.deep.equal(allProducts);
+    // });
+   });
 
   afterEach(function () {
       sinon.restore();

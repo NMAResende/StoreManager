@@ -57,6 +57,19 @@ const idRemove =  {
 
 const idSale = 1;
 
+const insert = [{
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  info: '',
+  serverStatus: 2,
+  warningStatus: 0
+},
+  undefined
+];
+
+const insertId = 3;
+
 module.exports = {
   salesList,
   newSales,
@@ -64,4 +77,6 @@ module.exports = {
   salesInsert,
   idRemove,
   idSale,
+  insert,
+  insertId,
 }

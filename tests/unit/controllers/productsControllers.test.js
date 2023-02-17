@@ -149,6 +149,27 @@ describe('Teste de unidade do Controller', function () {
     });
   });
 
+  describe('Usando o método GET em /products/search', function () {
+    it('Retorna os produtos que contém "Martelo" no nome', async function () {
+       const result = [{
+        "id": 1,
+        "name": "Martelo de Thor"
+      }];
+      const res = {};
+      const req = { query: { "q": "Martelo" } };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon.stub(productsService, 'searchProduct').resolves(result);
+
+      await productsController.searchProduct(req, res);
+
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(result);
+    });
+   });
+
   afterEach(function () {
       sinon.restore();
     });

@@ -82,7 +82,7 @@ describe('Teste de unidade do Controller', function () {
   //     res.status = sinon.stub().returns(res);
   //     res.json = sinon.stub().returns();
 
-  //     sinon.stub(salesService, 'insertSales').resolves({resultController});
+  //     sinon.stub(salesService, 'insertSales').resolves(resultController);
   // //     { type: null, 
   // //   id: saleId,
   // //   message: sales,
